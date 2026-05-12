@@ -1,0 +1,47 @@
+@startuml
+skinparam componentStyle uml2
+
+title Diagrama de Componentes - Sistema de Gestão das Olimpíadas (SGO)
+
+package "Apresentação" {
+    [Interface de Usuário] as UI
+}
+
+package "Lógica de Negócio" {
+    [Módulo de Inscrições] as Inscr
+    [Módulo de Alocação] as Aloc
+    [Módulo de Relatórios] as Relat
+    [Controle de Resultados] as Result
+}
+
+package "Persistência" {
+    database "Banco de Dados Central" as DB
+}
+
+' Interfaces e Interações
+UI ..> Inscr : Gerenciar Atletas
+UI ..> Aloc : Alocar Arenas
+UI ..> Result : Lançar Pontuação
+UI ..> Relat : Consultar Medalhas
+
+' Dependências de Negócio
+Inscr ..> Aloc : Verifica Agenda da Modalidade
+Result ..> Relat : Alimenta Dados de Medalhas
+
+' Acesso ao Banco de Dados
+Inscr --> DB
+Aloc --> DB
+Result --> DB
+Relat --> DB
+
+note right of Aloc
+  Regra: Valida disponibilidade
+  do local para evitar conflitos.
+end note
+
+note right of Inscr
+  Regra: Valida país do atleta
+  por modalidade.
+end note
+
+@enduml
