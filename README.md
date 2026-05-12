@@ -32,7 +32,7 @@ Este sistema foi desenvolvido como parte das atividades de Engenharia de Softwar
 <img width="500px" height="500px" src="imagens/diagrama-de-classes.png"/>
 
 ### 3. Diagrama de Componentes
-<img width="500px" height="500px" src="./imagens/diagrama-de-componentes.png"/>
+<img width="500px" height="500px" src="imagens/diagrama-de-componentes.png"/>
 
 ### 4. Diagrama de Implantação
 <img width="500px" height="500px" src="./imagens/diagrama-de-implantação.png"/>
