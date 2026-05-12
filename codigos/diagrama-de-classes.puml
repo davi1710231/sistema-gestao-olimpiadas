@@ -1,0 +1,66 @@
+@startuml
+' Configurações visuais
+skinparam classAttributeIconSize 0
+skinparam packageStyle rect
+
+package "Pacote: Gestão de Pessoas" {
+    class Pais {
+        - id: int
+        - nome: String
+        - sigla: String
+        + getQuadroMedalhas(): void
+    }
+
+    class Atleta {
+        - id: int
+        - nome: String
+        - dataNascimento: Date
+        + representarPais(Pais): void
+    }
+}
+
+package "Pacote: Infraestrutura" {
+    class Local {
+        - id: int
+        - nome: String
+        - capacidade: int
+        + verificarDisponibilidade(data: Date, hora: Time): boolean
+    }
+}
+
+package "Pacote: Competição" {
+    class Competição {
+        - id: int
+        - modalidade: String
+        - data: Date
+        - horario: Time
+        + adicionarAtleta(Atleta): void
+        + definirLocal(Local): void
+    }
+
+    class Resultado {
+        - medalhaOuro: Atleta
+        - medalhaPrata: Atleta
+        - medalhaBronze: Atleta
+        + registrarVencedores(): void
+    }
+}
+
+' Relacionamentos (Regras de Negócio)
+Pais "1" *-- "many" Atleta : possui >
+Atleta "many" -- "many" Competição : participa >
+Competição "many" -- "1" Local : ocorre em >
+Competição "1" -- "1" Resultado : gera >
+
+' Notas para reforçar as Regras de Negócio da atividade
+note bottom of Atleta
+  RN02: Atleta representa apenas 
+  um país em cada modalidade.
+end note
+
+note bottom of Local
+  RN03: Um local só abriga 
+  uma competição por vez.
+end note
+
+@enduml
