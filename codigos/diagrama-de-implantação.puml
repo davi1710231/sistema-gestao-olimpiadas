@@ -1,0 +1,48 @@
+@startuml
+title Diagrama de Implantação - Infraestrutura SGO
+
+' Definição dos Estilos
+skinparam node {
+    BackgroundColor LightBlue
+}
+
+' Dispositivos do Usuário
+node "Dispositivo do Usuário" as UserDevice <<Dispositivo>> {
+    node "Navegador Web (Chrome/Firefox)" as Browser
+    node "App Mobile" as MobileApp
+}
+
+' Servidor de Aplicação
+node "Servidor de Aplicação (Cloud/AWS)" as AppServer <<Servidor>> {
+    artifact "SGO_Application.war" as App {
+        component [Módulo de Inscrições]
+        component [Módulo de Alocação]
+        component [Módulo de Relatórios]
+        component [Interface Web]
+    }
+}
+
+' Servidor de Banco de Dados
+node "Servidor de Banco de Dados" as DBServer <<Servidor>> {
+    database "PostgreSQL / Oracle" as DB {
+        [Tabelas de Atletas]
+        [Tabelas de Medalhas]
+    }
+}
+
+' Conexões e Protocolos
+UserDevice -- AppServer : HTTP/HTTPS (Porta 443)
+AppServer -- DBServer : JDBC/SQL (Porta 5432)
+
+note right of UserDevice
+  Atores: Admin, Juiz, 
+  Comitê e Espectador.
+end note
+
+note bottom of AppServer
+  Ambiente de execução Java/Tomcat 
+  ou Node.js onde os componentes 
+  estão implantados.
+end note
+
+@enduml
