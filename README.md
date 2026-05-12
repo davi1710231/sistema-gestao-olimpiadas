@@ -29,7 +29,7 @@ Este sistema foi desenvolvido como parte das atividades de Engenharia de Softwar
 <img width="500px" src="imagens/diagrama-de-caso-de-uso.png"/>
 
 ### 2. Diagrama de Classes
-<img width="500px" height="500px" src="./imagens/diagrama-de-classes.png"/>
+<img width="500px" height="500px" src="imagens/diagrama-de-classes.png"/>
 
 ### 3. Diagrama de Pacotes
 <img width="500px" height="500px" src="./imagens/diagrama-de-pacotes.png"/>
