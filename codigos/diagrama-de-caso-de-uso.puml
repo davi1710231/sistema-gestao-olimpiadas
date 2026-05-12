@@ -1,0 +1,68 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Administrador" as Admin
+actor "Comitê Nacional" as Comite
+actor "Juiz" as Juiz
+actor "Usuário/Espectador" as User
+
+rectangle "Sistema de Gestão das Olimpíadas (SGO)" {
+    
+    ' Casos de Uso do Administrador
+    (Cadastrar Competição) as UC1
+    (Alocar Local da Prova) as UC2
+    (Gerenciar Modalidades) as UC12
+    
+    ' Casos de Uso do Comitê
+    (Cadastrar Atleta) as UC3
+    (Inscrever Atleta em Competição) as UC4
+    
+    ' Casos de Uso do Juiz
+    (Registrar Resultados) as UC5
+    (Definir Pódio/Vencedores) as UC6
+    
+    ' Casos de Uso de Relatórios
+    (Gerar Relatório de Medalhas) as UC7
+    (Consultar Quadro de Medalhas) as UC8
+    (Consultar Cronograma) as UC9
+
+    ' Relacionamentos de Inclusão e Extensão
+    UC1 ..> UC12 : <<include>>
+    UC4 ..> UC3 : <<include>>
+    UC5 ..> UC6 : <<include>>
+    
+    ' Regras de Negócio complexas (Extensões)
+    (Validar Disponibilidade de Local) as UC10
+    (Validar Nacionalidade Única) as UC11
+    
+    UC2 <.. UC10 : <<extend>>
+    UC4 <.. UC11 : <<extend>>
+
+    ' Associações de Atores
+    Admin --> UC1
+    Admin --> UC2
+    Admin --> UC7
+    
+    Comite --> UC3
+    Comite --> UC4
+    
+    Juiz --> UC5
+    
+    User --> UC8
+    User --> UC9
+}
+
+note right of UC10
+  RN03: Garante que um local
+  não tenha duas provas
+  no mesmo horário.
+end note
+
+note right of UC11
+  RN02: Atleta só pode
+  representar um país
+  por modalidade.
+end note
+
+@enduml
